@@ -118,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
             Uri personPhoto = account.getPhotoUrl();
 
             Toast.makeText(this, "Welcome " + personName + "\n" + personemail + "\n" + personid, Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(this,dashboard.class);
+            startActivity(intent);
         }
     }
 }
