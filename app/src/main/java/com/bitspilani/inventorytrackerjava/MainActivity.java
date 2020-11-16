@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         signInButton = (SignInButton) findViewById(R.id.googleBtn);
         mAuth = FirebaseAuth.getInstance();
         // Configure Google Sign In
