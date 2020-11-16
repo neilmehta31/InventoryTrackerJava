@@ -1,5 +1,6 @@
 package com.bitspilani.inventorytrackerjava.model;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bitspilani.inventorytrackerjava.NoteDetails;
 import com.bitspilani.inventorytrackerjava.R;
 
 import java.util.ArrayList;
@@ -36,12 +38,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
         holder.noteTitle.setText(titles.get(position));
         holder.noteContent.setText(content.get(position));
-        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(getRandomColour()));
+        final int colorCode = getRandomColour();
+        holder.mCardView.setCardBackgroundColor(holder.view.getResources().getColor(colorCode,null));
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Item is clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), NoteDetails.class);
+                intent.putExtra("title",titles.get(position));
+                intent.putExtra("content",content.get(position));
+                intent.putExtra("colorCode",colorCode);
+                view.getContext().startActivity(intent);
             }
         });
     }
