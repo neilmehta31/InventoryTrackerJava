@@ -1,5 +1,6 @@
 package com.bitspilani.inventorytrackerjava;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -69,6 +70,8 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.addNote:
+                startActivity(new Intent(this,AddNote.class));
             default:
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
         }
