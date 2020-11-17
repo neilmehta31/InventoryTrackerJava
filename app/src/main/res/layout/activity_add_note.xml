@@ -19,15 +19,15 @@
             app:popupTheme="@style/Theme.InventoryTrackerJava.PopupOverlay">
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/addNoteTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:ems="10"
 
-                android:hint="@string/title_activity_add_note"
+                android:hint="Add Note Title"
                 android:inputType="textPersonName"
-                android:textColorHint="#D0FFFFFF"
+                android:textColorHint="#FFFFFF"
                 android:textSize="24sp" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -43,7 +43,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimaryDark"
+        app:fabSize="auto"
         app:maxImageSize="30dp"
-        app:srcCompat="@drawable/ic_save_black_24dp" />
+        app:srcCompat="@drawable/ic_baseline_save_white_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

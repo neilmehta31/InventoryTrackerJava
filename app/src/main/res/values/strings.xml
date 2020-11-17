@@ -12,7 +12,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="open">open</string>
-    <string name="close">close</string>
+    <string name="close">Close</string>
     <string name="title_activity_note_details">NoteDetails</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
