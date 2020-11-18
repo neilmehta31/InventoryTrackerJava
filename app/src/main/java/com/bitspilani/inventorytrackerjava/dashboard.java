@@ -53,6 +53,8 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note,NoteViewHolder> noteAdapter;
     Intent data;
+    TextView name,email;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +62,17 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_main_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        data = getIntent();
+
+        //Display UserName and EmailId in Drawer
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.userDisplayName);
+        TextView navUserEmail = (TextView) headerView.findViewById(R.id.userDisplayEmail);
+        navUsername.setText(data.getStringExtra("personName"));
+        navUserEmail.setText(data.getStringExtra("personemail"));
+
+
 
         fStore = FirebaseFirestore.getInstance();
 
@@ -90,7 +103,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                         view.getContext().startActivity(intent);
                     }
                 });
-                data = getIntent();
+
 
                 ImageView menuIcon = noteViewHolder.view.findViewById(R.id.menuIcon);
                 menuIcon.setOnClickListener(new View.OnClickListener() {

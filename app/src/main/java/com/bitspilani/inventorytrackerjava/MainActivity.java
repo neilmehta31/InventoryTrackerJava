@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Welcome " + personName + "\n" + personemail + "\n" + personid, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,dashboard.class);
+            intent.putExtra("personName",personName);
+            intent.putExtra("personemail",personemail);
             startActivity(intent);
         }
     }
