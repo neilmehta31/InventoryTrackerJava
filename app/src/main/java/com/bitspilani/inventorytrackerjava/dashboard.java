@@ -34,10 +34,14 @@ import com.bitspilani.inventorytrackerjava.model.Adapter;
 import com.bitspilani.inventorytrackerjava.model.Note;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -56,6 +60,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     FirestoreRecyclerAdapter<Note,NoteViewHolder> noteAdapter;
     Intent data;
     TextView name,email;
+    GoogleSignInClient mGoogleSignInClient;
 
 
     @Override
@@ -186,12 +191,22 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()){
             case R.id.addNote:
                 startActivity(new Intent(this,AddNote.class));
+                break;
+            case R.id.logout:
+                signOut();
+                startActivity(new Intent(this,MainActivity.class));
+                break;
             default:
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                break;
         }
         return false;
     }
 
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(this, "Signed Out Successfully", Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

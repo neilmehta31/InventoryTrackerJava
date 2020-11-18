@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton signInButton;
     private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
     private final static int RC_SIGN_IN = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         signInButton = (SignInButton) findViewById(R.id.googleBtn);
         mAuth = FirebaseAuth.getInstance();
         // Configure Google Sign In
+
+        currentUser = mAuth.getCurrentUser();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -121,6 +124,14 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("personName",personName);
             intent.putExtra("personemail",personemail);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(currentUser!=null){
+            updateUI(currentUser);
         }
     }
 }
