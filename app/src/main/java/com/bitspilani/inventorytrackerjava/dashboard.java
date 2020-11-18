@@ -1,17 +1,22 @@
 package com.bitspilani.inventorytrackerjava;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.Nullable;
@@ -27,8 +32,11 @@ import com.bitspilani.inventorytrackerjava.model.Adapter;
 import com.bitspilani.inventorytrackerjava.model.Note;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -44,6 +52,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     Adapter adapter;
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note,NoteViewHolder> noteAdapter;
+    Intent data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,13 +71,14 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                 .build();
 
         noteAdapter = new FirestoreRecyclerAdapter<Note, NoteViewHolder>(allNotes) {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull Note note) {
                 noteViewHolder.noteTitle.setText(note.getTitle());
                 noteViewHolder.noteContent.setText(note.getContent());
                 final int colorCode = getRandomColour();
                 noteViewHolder.mCardView.setCardBackgroundColor(noteViewHolder.view.getResources().getColor(colorCode,null));
-
+                String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                 noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -76,7 +86,49 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                         intent.putExtra("title",note.getTitle());
                         intent.putExtra("content", note.getContent());
                         intent.putExtra("colorCode",colorCode);
+                        intent.putExtra("noteId", docId);
                         view.getContext().startActivity(intent);
+                    }
+                });
+                data = getIntent();
+
+                ImageView menuIcon = noteViewHolder.view.findViewById(R.id.menuIcon);
+                menuIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+                        PopupMenu menu = new PopupMenu(view.getContext(),view);
+                        menu.setGravity(Gravity.END);
+                        menu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                Intent i = new Intent(view.getContext(),EditNote.class);
+                                i.putExtra("title",note.getTitle());
+                                i.putExtra("content",note.getContent());
+                                i.putExtra("noteId",docId);
+                                startActivity(i);
+                                return false;
+                            }
+                        });
+                        menu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                DocumentReference docRef = fStore.collection("notes").document(docId);
+                                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(dashboard.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(dashboard.this, "Error in deleting note", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return false;
+                            }
+                        });
+                        menu.show();
                     }
                 });
 
