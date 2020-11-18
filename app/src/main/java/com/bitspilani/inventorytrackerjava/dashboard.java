@@ -42,6 +42,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -61,6 +62,8 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     Intent data;
     TextView name,email;
     GoogleSignInClient mGoogleSignInClient;
+    FirebaseAuth fAuth;
+    FirebaseUser user;
 
 
     @Override
@@ -82,8 +85,12 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
 
 
         fStore = FirebaseFirestore.getInstance();
-
+        fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
+        //Query notes > uuid > myNotes
         Query query = fStore.collection("notes")
+                .document(user.getUid())
+                .collection("myNotes")
                 .orderBy("title",Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
@@ -133,7 +140,8 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                         menu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
-                                DocumentReference docRef = fStore.collection("notes").document(docId);
+                                DocumentReference docRef = fStore.collection("notes").document(user.getUid())
+                                        .collection("myNotes").document(docId);
                                 docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -180,7 +188,11 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), AddNote.class));
+                Intent i = new Intent(view.getContext(), AddNote.class);
+                i.putExtra("title",data.getStringExtra("title"));
+                i.putExtra("content",data.getStringExtra("content"));
+                i.putExtra("noteId",data.getStringExtra("noteId"));
+                startActivity(i);
             }
         });
     }
@@ -190,11 +202,16 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.addNote:
-                startActivity(new Intent(this,AddNote.class));
+                Intent i = new Intent(this, AddNote.class);
+                i.putExtra("title",data.getStringExtra("title"));
+                i.putExtra("content",data.getStringExtra("content"));
+                i.putExtra("noteId",data.getStringExtra("noteId"));
+                startActivity(i);
                 break;
             case R.id.logout:
                 signOut();
                 startActivity(new Intent(this,MainActivity.class));
+                finish();
                 break;
             default:
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
@@ -212,6 +229,11 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu,menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

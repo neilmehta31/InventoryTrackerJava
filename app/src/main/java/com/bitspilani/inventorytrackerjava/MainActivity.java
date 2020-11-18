@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent,RC_SIGN_IN);
+
     }
 
     @Override
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("personName",personName);
             intent.putExtra("personemail",personemail);
             startActivity(intent);
+            finish();
         }
     }
 
