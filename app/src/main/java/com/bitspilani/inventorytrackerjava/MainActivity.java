@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             String personid = account.getId();
             Uri personPhoto = account.getPhotoUrl();
 
-            Toast.makeText(this, "Welcome " + personName + "\n" + personemail + "\n" + personid, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Welcome " + personName, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,dashboard.class);
             intent.putExtra("personName",personName);
             intent.putExtra("personemail",personemail);
