@@ -1,4 +1,4 @@
-package com.bitspilani.inventorytrackerjava;
+package com.bitspilani.inventorytrackerjava.Note;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bitspilani.inventorytrackerjava.R;
+import com.bitspilani.inventorytrackerjava.dashboard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -77,7 +79,7 @@ public class EditNote extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditNote.this, "Note Updated", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),dashboard.class));
+                        startActivity(new Intent(getApplicationContext(), dashboard.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

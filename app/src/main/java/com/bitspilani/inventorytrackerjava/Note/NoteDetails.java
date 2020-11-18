@@ -1,12 +1,11 @@
-package com.bitspilani.inventorytrackerjava;
+package com.bitspilani.inventorytrackerjava.Note;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.bitspilani.inventorytrackerjava.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.internal.InternalTokenProvider;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -45,7 +44,7 @@ public class NoteDetails extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(),EditNote.class);
+                Intent i = new Intent(view.getContext(), EditNote.class);
                 i.putExtra("title",data.getStringExtra("title"));
                 i.putExtra("content",data.getStringExtra("content"));
                 i.putExtra("noteId",data.getStringExtra("noteId"));

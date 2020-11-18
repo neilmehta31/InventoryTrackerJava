@@ -24,10 +24,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.bitspilani.inventorytrackerjava.Note.AddNote;
+import com.bitspilani.inventorytrackerjava.Note.EditNote;
+import com.bitspilani.inventorytrackerjava.Note.NoteDetails;
 import com.bitspilani.inventorytrackerjava.model.Adapter;
 import com.bitspilani.inventorytrackerjava.model.Note;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -115,7 +117,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                         menu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
-                                Intent i = new Intent(view.getContext(),EditNote.class);
+                                Intent i = new Intent(view.getContext(), EditNote.class);
                                 i.putExtra("title",note.getTitle());
                                 i.putExtra("content",note.getContent());
                                 i.putExtra("noteId",docId);
@@ -173,7 +175,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(),AddNote.class));
+                startActivity(new Intent(view.getContext(), AddNote.class));
             }
         });
     }

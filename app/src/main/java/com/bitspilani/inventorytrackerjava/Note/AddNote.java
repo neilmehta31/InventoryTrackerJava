@@ -1,11 +1,11 @@
-package com.bitspilani.inventorytrackerjava;
+package com.bitspilani.inventorytrackerjava.Note;
 
 import android.os.Bundle;
 
+import com.bitspilani.inventorytrackerjava.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
