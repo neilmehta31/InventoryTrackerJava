@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InventoryTrackerJava">
+        <activity android:name=".auth.Register"></activity>
         <activity
             android:name=".Note.EditNote"
             android:theme="@style/AppTheme.NoActionBar" />
