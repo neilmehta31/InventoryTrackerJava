@@ -157,6 +157,28 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                                 return false;
                             }
                         });
+
+                        //Implementing sharing to other social media places.
+
+                        menu.getMenu().add("Share").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                Intent intent = new Intent(Intent.ACTION_SEND);
+                                intent.setType("text/plain");
+                                String shareTitle = note.getTitle();
+                                String shareContent = note.getContent();
+                                intent.putExtra(Intent.EXTRA_TITLE,shareTitle);
+                                intent.putExtra(Intent.EXTRA_TEXT,shareContent);
+                                startActivity(Intent.createChooser(intent,"Share"));
+//                                Intent sendIntent = new Intent();
+//                                sendIntent.setAction(Intent.ACTION_SEND);
+//                                sendIntent.putExtra(Intent.EXTRA_TITLE, "");
+//                                sendIntent.putExtra(Intent.EXTRA_TEXT, "");
+//                                sendIntent.setType("text/plain");
+//                                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share_with)));
+                                return false;
+                            }
+                        });
                         menu.show();
                     }
                 });
