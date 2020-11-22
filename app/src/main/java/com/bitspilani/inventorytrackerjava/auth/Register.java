@@ -65,13 +65,14 @@ public class Register extends AppCompatActivity {
                 String uUserEmail = rUserEmail.getText().toString();
                 String uUserPass = rUserPass.getText().toString();
                 String uUserConfPass = rUserConfPass.getText().toString();
-                String uUserPhone = rUserPhone.getText().toString();
+                String phone = rUserPhone.getText().toString();
+                String uUserPhone = phone;
 
                 if (uUserEmail.isEmpty() || uUsername.isEmpty() || uUserPass.isEmpty() || uUserConfPass.isEmpty() || uUserPhone.isEmpty()) {
                     Toast.makeText(Register.this, "All Fields Are Required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (uUserPhone.length()!=10){
+                if (rUserPhone.getText().toString().length()!=10){
                     rUserPhone.setError( "Enter a valid phone number");
                     return;
                 }
@@ -121,14 +122,10 @@ public class Register extends AppCompatActivity {
                                                                                             Register.this.finish();
                                                                                         }
                                                                                     });
-
                                                                             // create alert dialog
                                                                             AlertDialog alertDialog = alertDialogBuilder.create();
-
                                                                             // show it
                                                                             alertDialog.show();
-
-
                                                                         }
                                                                     }
                                                                 });
@@ -155,9 +152,9 @@ public class Register extends AppCompatActivity {
                             }).setNegativeButton("Phone number Verification", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-//                            Intent intent = new Intent(getApplicationContext(),PhoneVerification.class);
-//                            intent.putExtra("phoneNumber",uUserPhone);
-//                            startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(), PhoneLogin.class);
+                            intent.putExtra("phoneNumber",uUserPhone);
+                            startActivity(intent);
                             Toast.makeText(Register.this, "Phone Verification Clicked", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -166,30 +163,10 @@ public class Register extends AppCompatActivity {
 
                     // show it
                     alertDialog.show();
-
-//
-
                 }
-
-
-
             }
         });
 
-    }
-
-    private void updateUIregister(FirebaseUser user,  String uUsername) {
-    if (user!=null){
-        String personName = uUsername;
-        String personemail = user.getEmail();
-
-        Toast.makeText(this, "Welcome " + personName, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,dashboard.class);
-        intent.putExtra("personName",personName);
-        intent.putExtra("personemail",personemail);
-        startActivity(intent);
-        finish();
-    }
     }
 
     @Override
