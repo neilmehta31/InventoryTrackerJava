@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
     }
 //This is first pr
     private void signIn() {
