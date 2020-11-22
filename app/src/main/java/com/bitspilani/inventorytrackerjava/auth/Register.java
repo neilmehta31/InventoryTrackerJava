@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.internal.InternalTokenProvider;
 
 import java.util.concurrent.TimeUnit;
@@ -96,6 +97,11 @@ public class Register extends AppCompatActivity {
                                                 Log.d(TAG, "createUserWithEmail:success");
                                                 FirebaseUser user = fAuth.getCurrentUser();
 
+                                                UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                                                        .setDisplayName(uUsername)
+                                                        .build();
+                                                user.updateProfile(request);
+
                                                 try {
                                                     if (user != null)
                                                         user.sendEmailVerification()
@@ -117,8 +123,6 @@ public class Register extends AppCompatActivity {
                                                                                     .setCancelable(false)
                                                                                     .setPositiveButton("Sign In", new DialogInterface.OnClickListener() {
                                                                                         public void onClick(DialogInterface dialog, int id) {
-
-                                                                                            Intent signInIntent = new Intent(Register.this, dashboard.class);
                                                                                             Register.this.finish();
                                                                                         }
                                                                                     });
@@ -153,9 +157,9 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Intent intent = new Intent(getApplicationContext(), PhoneLogin.class);
+
                             intent.putExtra("phoneNumber",uUserPhone);
                             startActivity(intent);
-                            Toast.makeText(Register.this, "Phone Verification Clicked", Toast.LENGTH_SHORT).show();
                         }
                     });
                     // create alert dialog
