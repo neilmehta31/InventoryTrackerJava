@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
     }
 
     private void updateUIemaillogin(FirebaseUser user) {
