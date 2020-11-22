@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -212,6 +213,9 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                 signOut();
                 startActivity(new Intent(this,MainActivity.class));
                 finish();
+                break;
+            case R.id.notes:
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.categories:
                 startActivity(new Intent(this,Categories.class));
