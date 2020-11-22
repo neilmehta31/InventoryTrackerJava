@@ -56,12 +56,12 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     ActionBarDrawerToggle toggle;
     NavigationView nav_view;
     RecyclerView noteLists;
-    Adapter adapter;
+//    Adapter adapter;
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note,NoteViewHolder> noteAdapter;
     Intent data;
-    TextView name,email;
-    GoogleSignInClient mGoogleSignInClient;
+//    TextView name,email;
+//    GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth fAuth;
     FirebaseUser user;
 

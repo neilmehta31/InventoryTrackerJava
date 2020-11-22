@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -101,7 +102,7 @@ public class PhoneLogin extends AppCompatActivity {
 //                });
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phn)       // Phone number to verify
+                        .setPhoneNumber("+91" + phn)       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -136,11 +137,11 @@ public class PhoneLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(PhoneLogin.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PhoneLogin.this, "Success", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(PhoneLogin.this, "Welcome "+user.getPhoneNumber(), Toast.LENGTH_SHORT).show();
                             Intent i= new Intent(getApplicationContext(), dashboard.class);
-                            i.putExtra("personName",credential.getProvider());
+                            i.putExtra("personName","+91-" + phn);
                             startActivity(i);
                             // ...
                         } else {
