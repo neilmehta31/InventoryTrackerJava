@@ -213,6 +213,9 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                 startActivity(new Intent(this,MainActivity.class));
                 finish();
                 break;
+            case R.id.categories:
+                startActivity(new Intent(this,Categories.class));
+                break;
             default:
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 break;
