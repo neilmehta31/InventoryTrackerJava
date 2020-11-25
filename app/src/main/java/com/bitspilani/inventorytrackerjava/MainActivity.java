@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
     //This is first pr
     private void signIn() {
+        mGoogleSignInClient.signOut();          //This line of code deletes any cache of previous signed in user and asks for pop up
+                                                //to user to choose an account to sign in into the app.
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent,RC_SIGN_IN);
 
