@@ -11,7 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InventoryTrackerJava">
-        <activity android:name=".Categories"></activity>
+        <activity android:name=".Category.EditCategory" android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".Category.categoryDetails" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Category.category_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Category.AddCategory"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".auth.PhoneLogin" />
         <activity android:name=".auth.Register" />
         <activity

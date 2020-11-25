@@ -1,4 +1,4 @@
-package com.bitspilani.inventorytrackerjava;
+package com.bitspilani.inventorytrackerjava.Category;
 
 import android.content.Intent;
 import android.os.Build;
@@ -25,13 +25,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bitspilani.inventorytrackerjava.Category.category_dashboard;
+import com.bitspilani.inventorytrackerjava.MainActivity;
 import com.bitspilani.inventorytrackerjava.Note.AddNote;
 import com.bitspilani.inventorytrackerjava.Note.EditNote;
 import com.bitspilani.inventorytrackerjava.Note.NoteDetails;
+import com.bitspilani.inventorytrackerjava.R;
+import com.bitspilani.inventorytrackerjava.dashboard;
 import com.bitspilani.inventorytrackerjava.model.Note;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -49,17 +53,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle toggle;
-    NavigationView nav_view;
+public class category_dashboard extends AppCompatActivity {
+
     RecyclerView noteLists;
-//    Adapter adapter;
     FirebaseFirestore fStore;
     FirestoreRecyclerAdapter<Note,NoteViewHolder> noteAdapter;
     Intent data;
-//    TextView name,email;
-//    GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth fAuth;
     FirebaseUser user;
 
@@ -67,28 +66,21 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_dashboard);
+        setContentView(R.layout.activity_category_dashboard);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         data = getIntent();
-
-        //Display UserName and EmailId in Drawer
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.userDisplayName);
-        TextView navUserEmail = (TextView) headerView.findViewById(R.id.userDisplayEmail);
-        navUsername.setText(data.getStringExtra("personName"));
-        navUserEmail.setText(data.getStringExtra("personemail"));
-
 
 
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
-        //Query notes > uuid > myNotes
-        Query query = fStore.collection("notes")
+        //Query notes > uuid > myCategory
+        Query query = fStore.collection("categories")
                 .document(user.getUid())
-                .collection("myNotes")
+                .collection("myCategory")
                 .orderBy("title",Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Note> allNotes = new FirestoreRecyclerOptions.Builder<Note>()
@@ -100,24 +92,22 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
             @Override
             protected void onBindViewHolder(@NonNull NoteViewHolder noteViewHolder, int i, @NonNull Note note) {
                 noteViewHolder.noteTitle.setText(note.getTitle());
-                noteViewHolder.noteContent.setText(note.getContent());
-                final int colorCode = getRandomColour();
-                noteViewHolder.mCardView.setCardBackgroundColor(noteViewHolder.view.getResources().getColor(colorCode,null));
+
+
                 String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                 noteViewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(view.getContext(), NoteDetails.class);
+                        Intent intent = new Intent(view.getContext(), categoryDetails.class);
                         intent.putExtra("title",note.getTitle());
                         intent.putExtra("content", note.getContent());
-                        intent.putExtra("colorCode",colorCode);
                         intent.putExtra("noteId", docId);
                         view.getContext().startActivity(intent);
                     }
                 });
 
 
-                ImageView menuIcon = noteViewHolder.view.findViewById(R.id.menuIcon);
+                ImageView menuIcon = noteViewHolder.view.findViewById(R.id.categoryMenuIcon);
                 menuIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -125,9 +115,10 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                         PopupMenu menu = new PopupMenu(view.getContext(),view);
                         menu.setGravity(Gravity.END);
                         menu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
-                                Intent i = new Intent(view.getContext(), EditNote.class);
+                                Intent i = new Intent(view.getContext(), EditCategory.class);
                                 i.putExtra("title",note.getTitle());
                                 i.putExtra("content",note.getContent());
                                 i.putExtra("noteId",docId);
@@ -138,17 +129,17 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
                         menu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
-                                DocumentReference docRef = fStore.collection("notes").document(user.getUid())
-                                        .collection("myNotes").document(docId);
+                                DocumentReference docRef = fStore.collection("categories").document(user.getUid())
+                                        .collection("myCategory").document(docId);
                                 docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(dashboard.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(category_dashboard.this, "Note Deleted", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(dashboard.this, "Error in deleting note", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(category_dashboard.this, "Error in deleting note", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 return false;
@@ -185,30 +176,27 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
             @NonNull
             @Override
             public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_view_layout,parent,false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_dashboard_layout,parent,false);
                 return new NoteViewHolder(view);
             }
         };
 
-        noteLists = findViewById(R.id.notelist);
+        noteLists = findViewById(R.id.categoryList);
 
-        drawerLayout = findViewById(R.id.drawer);
-        nav_view = findViewById(R.id.nav_view);
-        nav_view.setNavigationItemSelectedListener(this);
-        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close );
-        drawerLayout.addDrawerListener(toggle);
-        toggle.setDrawerIndicatorEnabled(true);
-        toggle.syncState();
-//        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-        noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+
+
+
+//        noteLists.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        noteLists.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         noteLists.setAdapter(noteAdapter);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+
+        FloatingActionButton fab = findViewById(R.id.categoryFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), AddNote.class);
+                Intent i = new Intent(view.getContext(), AddCategory.class);
                 i.putExtra("title",data.getStringExtra("title"));
                 i.putExtra("content",data.getStringExtra("content"));
                 i.putExtra("noteId",data.getStringExtra("noteId"));
@@ -218,44 +206,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
     }
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.addNote:
-                Intent i = new Intent(this, AddNote.class);
-                i.putExtra("title",data.getStringExtra("title"));
-                i.putExtra("content",data.getStringExtra("content"));
-                i.putExtra("noteId",data.getStringExtra("noteId"));
-                startActivity(i);
-                break;
-            case R.id.logout:
-                signOut();
-                startActivity(new Intent(this,MainActivity.class));
-                finish();
-                break;
-            case R.id.notes:
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            case R.id.categories:
-                startActivity(new Intent(this, category_dashboard.class));
-                break;
-            default:
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return false;
-    }
 
-    private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(this, "Signed Out Successfully", Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public void onBackPressed() {
@@ -264,11 +215,12 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.settings){
-            Toast.makeText(this, "Settings Menu is clicked", Toast.LENGTH_SHORT).show();
+        if (item.getItemId()==android.R.id.home){
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public class NoteViewHolder extends RecyclerView.ViewHolder{
         TextView noteTitle,noteContent;
@@ -276,30 +228,14 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         View view;
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteContent = itemView.findViewById(R.id.content);
-            noteTitle = itemView.findViewById(R.id.titles);
-            mCardView = itemView.findViewById(R.id.noteCard);
+            noteContent = itemView.findViewById(R.id.tvNoteCreation);
+            noteTitle = itemView.findViewById(R.id.tvNoteTitle);
+            mCardView = itemView.findViewById(R.id.categoryCard);
             view = itemView;
         }
     }
 
-    private int getRandomColour() {
-        List<Integer> colorCode = new ArrayList<>();
-        colorCode.add(R.color.blue);
-        colorCode.add(R.color.yellow);
-        colorCode.add(R.color.skyblue);
-        colorCode.add(R.color.lightPurple);
-        colorCode.add(R.color.lightGreen);
-        colorCode.add(R.color.gray);
-        colorCode.add(R.color.pink);
-        colorCode.add(R.color.red);
-        colorCode.add(R.color.greenlight);
-        colorCode.add(R.color.notgreen);
 
-        Random randomColor = new Random();
-        int number = randomColor.nextInt(colorCode.size());
-        return colorCode.get(number);
-    }
 
     @Override
     protected void onStart() {

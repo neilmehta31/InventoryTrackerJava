@@ -1,9 +1,10 @@
-package com.bitspilani.inventorytrackerjava.Note;
+package com.bitspilani.inventorytrackerjava.Category;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.bitspilani.inventorytrackerjava.Note.EditNote;
 import com.bitspilani.inventorytrackerjava.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -16,14 +17,15 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class NoteDetails extends AppCompatActivity {
+public class categoryDetails extends AppCompatActivity {
     Intent data;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_details);
+        setContentView(R.layout.activity_category_details);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,19 +34,20 @@ public class NoteDetails extends AppCompatActivity {
         data = getIntent();
 
 
-        TextView content = findViewById(R.id.noteDetailsContent);
-        TextView title = findViewById(R.id.noteDetailsTitle);
+        TextView content = findViewById(R.id.categoryDetailsContent);
+        TextView title = findViewById(R.id.categoryDetailsTitle);
         content.setMovementMethod(new ScrollingMovementMethod());
 
         content.setText(data.getStringExtra("content"));
         title.setText(data.getStringExtra("title"));
-        content.setBackgroundColor(getResources().getColor(data.getIntExtra("colorCode", 0),null));
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(view.getContext(), EditNote.class);
+
+                Intent i = new Intent(view.getContext(), EditCategory.class);
                 i.putExtra("title",data.getStringExtra("title"));
                 i.putExtra("content",data.getStringExtra("content"));
                 i.putExtra("noteId",data.getStringExtra("noteId"));

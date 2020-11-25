@@ -3,6 +3,7 @@ package com.bitspilani.inventorytrackerjava.auth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,8 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +47,8 @@ public class Register extends AppCompatActivity {
     Button signUpBtn,signInUsingEmail;
     TextView loginAct;
     FirebaseAuth fAuth;
+    private Spinner spinner;
+    private static final String[] paths = {"Choose your Profession","Working Professional", "Home-Maker", "Job-Seeker","Bachelor","Other"};
 
 
     @Override
@@ -52,6 +58,29 @@ public class Register extends AppCompatActivity {
         getSupportActionBar().setTitle("Register");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        spinner = (Spinner)findViewById(R.id.appCompatSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Register.this,
+                android.R.layout.simple_spinner_item,paths);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // First item will be gray
+                if (position == 0) {
+                    ((TextView) view).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.notgreen));
+                } else {
+                    ((TextView) view).setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         rUserName = findViewById(R.id.registerName);
         rUserPass = findViewById(R.id.registerPassword);
         rUserConfPass = findViewById(R.id.regiter_confirm_password);
