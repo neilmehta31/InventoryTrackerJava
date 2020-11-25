@@ -20,13 +20,13 @@
         app:titleTextColor="#FFFFFF">
 
         <EditText
-            android:id="@+id/editNoteTitle"
+            android:id="@+id/editCategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:ems="10"
 
-            android:hint="Add Note Title"
+            android:hint="Add Category Title"
             android:inputType="textPersonName"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
@@ -36,7 +36,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/editNoteContent"
+        android:id="@+id/editCategoryContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/saveEditedNote"
+        android:id="@+id/saveEditedCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
