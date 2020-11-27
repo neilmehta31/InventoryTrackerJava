@@ -29,7 +29,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bitspilani.inventorytrackerjava.Category.category_dashboard;
+
+
 import com.bitspilani.inventorytrackerjava.DrawingFeature.DrawingActivity;
+
 import com.bitspilani.inventorytrackerjava.Note.AddNote;
 import com.bitspilani.inventorytrackerjava.Note.EditNote;
 import com.bitspilani.inventorytrackerjava.Note.NoteDetails;

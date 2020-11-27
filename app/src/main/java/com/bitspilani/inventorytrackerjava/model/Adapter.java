@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.content.Context;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.bitspilani.inventorytrackerjava.Note.NoteDetails;
 import com.bitspilani.inventorytrackerjava.R;
@@ -92,5 +95,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             view = itemView;
         }
     }
+
 }
+
 //mukund's first commit
