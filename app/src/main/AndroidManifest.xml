@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bitspilani.inventorytrackerjava">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,9 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InventoryTrackerJava">
-        <activity android:name=".Category.EditCategory" android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".Category.categoryDetails" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".DrawingFeature.DrawingActivity" android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Category.EditCategory"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Category.categoryDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Category.category_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />

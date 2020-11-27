@@ -53,4 +53,5 @@ dependencies {
     implementation "androidx.browser:browser:1.2.0"
     implementation 'com.google.firebase:firebase-core:17.2.2'
     implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
+    implementation 'com.github.gcacace:signature-pad:1.2.1'
 }

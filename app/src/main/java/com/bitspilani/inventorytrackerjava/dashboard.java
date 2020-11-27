@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bitspilani.inventorytrackerjava.Category.category_dashboard;
+import com.bitspilani.inventorytrackerjava.DrawingFeature.DrawingActivity;
 import com.bitspilani.inventorytrackerjava.Note.AddNote;
 import com.bitspilani.inventorytrackerjava.Note.EditNote;
 import com.bitspilani.inventorytrackerjava.Note.NoteDetails;
@@ -62,6 +63,7 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
 //    GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth fAuth;
     FirebaseUser user;
+    FloatingActionButton scribble;
 
 
     @Override
@@ -80,6 +82,13 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
         navUsername.setText(data.getStringExtra("personName"));
         navUserEmail.setText(data.getStringExtra("personemail"));
 
+        scribble = findViewById(R.id.scribble);
+        scribble.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), DrawingActivity.class));
+            }
+        });
 
 
         fStore = FirebaseFirestore.getInstance();
