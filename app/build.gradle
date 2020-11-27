@@ -51,8 +51,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.android.support:multidex:1.0.3'
-
+    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.core:core:1.0.0'
     implementation 'com.google.firebase:firebase-core:17.2.2'
     implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
