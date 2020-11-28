@@ -276,8 +276,8 @@ public class dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.settings){
-            Toast.makeText(this, "Settings Menu is clicked", Toast.LENGTH_SHORT).show();
+        if(item.getItemId() == R.id.search){
+            Toast.makeText(this, "Search Menu is clicked", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
