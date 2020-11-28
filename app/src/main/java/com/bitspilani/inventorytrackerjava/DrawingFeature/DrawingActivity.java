@@ -79,17 +79,18 @@ public class DrawingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
+
                 if (addJpgSignatureToGallery(signatureBitmap)) {
                     verifyStoragePermissions(DrawingActivity.this);
-                    Toast.makeText(DrawingActivity.this, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DrawingActivity.this, "Doodle saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(DrawingActivity.this, "Unable to store the signature", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DrawingActivity.this, "Unable to store the Doodle", Toast.LENGTH_SHORT).show();
                 }
                 if (addSvgSignatureToGallery(mSignaturePad.getSignatureSvg())) {
                     verifyStoragePermissions(DrawingActivity.this);
-                    Toast.makeText(DrawingActivity.this, "SVG Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DrawingActivity.this, "SVG Doodle saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(DrawingActivity.this, "Unable to store the SVG signature", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DrawingActivity.this, "Unable to store the SVG Doodle", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -122,7 +123,7 @@ public class DrawingActivity extends Activity {
     public void saveBitmapToJPG(Bitmap bitmap, File photo) throws IOException {
         Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(newBitmap);
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(bitmap, 0, 0, null);
         OutputStream stream = new FileOutputStream(photo);
         newBitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
