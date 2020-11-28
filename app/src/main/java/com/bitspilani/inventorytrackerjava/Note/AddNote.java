@@ -50,7 +50,7 @@ public class AddNote extends AppCompatActivity {
     ProgressBar progressBarSave;
     FirebaseUser user;
     Intent data;
-    Button button_date, button_time;
+    Button button_date, button_time, button_cancel;
     String timeTonotify;
     String dateString = "";
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
@@ -67,6 +67,7 @@ public class AddNote extends AppCompatActivity {
         createNotificationChannel();
         button_date = findViewById(R.id.button_date);
         button_time = findViewById(R.id.button_time);
+
         button_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +81,7 @@ public class AddNote extends AppCompatActivity {
                 setTime();
             }
         });
+
 
 
         data = getIntent();

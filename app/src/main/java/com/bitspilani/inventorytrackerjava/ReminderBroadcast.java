@@ -13,10 +13,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.util.Random;
+
 public class ReminderBroadcast  extends BroadcastReceiver  {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
 
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context,"Lemubit")
