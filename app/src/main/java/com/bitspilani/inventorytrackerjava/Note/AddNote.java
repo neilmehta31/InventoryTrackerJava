@@ -250,7 +250,7 @@ public class AddNote extends AppCompatActivity {
         }
 
 
-        if (hour < 12) {
+        if (hour < 10) {
             time = "0" + hour + ":" + formattedMinute + ":"  + "00";
         }else{
             time = hour +":" + formattedMinute + ":"+ "00";
