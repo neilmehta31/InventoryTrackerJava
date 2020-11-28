@@ -10,7 +10,7 @@
     <EditText
         android:id="@+id/addNoteContent"
         android:layout_width="0dp"
-        android:layout_height="500dp"
+        android:layout_height="600dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
@@ -47,26 +47,26 @@
 
     <Button
         android:id="@+id/button_time"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:text="Set time"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_date"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.901" />
+        app:layout_constraintVertical_bias="0.913" />
 
     <Button
         android:id="@+id/button_date"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:text="Set Date"
-        app:layout_constraintBottom_toTopOf="@+id/button_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.996" />
+        app:layout_constraintVertical_bias="0.913" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
