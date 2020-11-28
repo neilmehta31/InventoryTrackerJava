@@ -133,7 +133,7 @@ public class DrawingActivity extends Activity {
     public boolean addJpgSignatureToGallery(Bitmap signature) {
         boolean result = false;
         try {
-            File photo = new File(getAlbumStorageDir("SignaturePad"), String.format("Signature_%d.jpg", System.currentTimeMillis()));
+            File photo = new File(getAlbumStorageDir("Track And Trigger"), String.format("Signature_%d.jpg", System.currentTimeMillis()));
             saveBitmapToJPG(signature, photo);
             scanMediaFile(photo);
             result = true;
