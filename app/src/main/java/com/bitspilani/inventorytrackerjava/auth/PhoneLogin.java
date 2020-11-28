@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -158,7 +160,7 @@ public class PhoneLogin extends AppCompatActivity {
 
     private boolean check() {
         phn = phoneNo.getText().toString();
-        return phn.length() == 10;
+        return (phn.length() == 10);
     }
 
     private boolean check2() {

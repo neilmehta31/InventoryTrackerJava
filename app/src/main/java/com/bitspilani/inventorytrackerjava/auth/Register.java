@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -102,8 +104,11 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "All Fields Are Required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (rUserPhone.getText().toString().length()!=10){
+                if (rUserPhone.getText().toString().length()!=10 && isValidNumber(uUserPhone)){
                     rUserPhone.setError( "Enter a valid phone number");
+                    return;
+                }if (!isValidEmail(uUserEmail)){
+                    rUserEmail.setError("Enter a valid email");
                     return;
                 }
                 if (!uUserPass.equals(uUserConfPass)) {
@@ -207,5 +212,11 @@ public class Register extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
         finish();
         return super.onOptionsItemSelected(item);
+    }
+    public static boolean isValidEmail(CharSequence target) {
+        return (Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+    private boolean isValidNumber(CharSequence target) {
+        return (Patterns.PHONE.matcher(target).matches());
     }
 }
